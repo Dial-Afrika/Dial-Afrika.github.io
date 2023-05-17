@@ -763,35 +763,39 @@
 					clientMessage = inputValue;
 				});
 				const sendMsgBtn = document.getElementById("send-button");
-				sendMsgBtn.addEventListener("click", async () => {
-					if (clientMessage) {
-						const res = await fetch(webchatUrl, {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({
-								route: "LIVE_CHAT",
-								payload: {
-									clientId: clientId,
-									ticketId: ticketId,
-									socketId: socketId,
-									clientMessage: clientMessage,
-								},
-							}),
-						})
-							.then((res) => res.json())
-							.then((data) => {
-								const messageDivCount = ++clientDivCount;
-								const messageDiv = document.createElement("div");
-								webchat.appendChild(messageDiv);
-								messageDiv.classList.add("reply-message");
-								const newestMessage = document.createElement("p");
-								newestMessage.textContent = clientMessage;
-								messageDiv.appendChild(newestMessage);
-								clientMessage = "";
-								userInput.value = "";
-							});
-					}
-				});
+				sendMsgBtn.addEventListener(
+					"click",
+					async () => {
+						if (clientMessage) {
+							const res = await fetch(webchatUrl, {
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify({
+									route: "LIVE_CHAT",
+									payload: {
+										clientId: clientId,
+										ticketId: ticketId,
+										socketId: socketId,
+										clientMessage: clientMessage,
+									},
+								}),
+							})
+								.then((res) => res.json())
+								.then((data) => {
+									const messageDivCount = ++clientDivCount;
+									const messageDiv = document.createElement("div");
+									webchat.appendChild(messageDiv);
+									messageDiv.classList.add("reply-message");
+									const newestMessage = document.createElement("p");
+									newestMessage.textContent = clientMessage;
+									messageDiv.appendChild(newestMessage);
+									clientMessage = "";
+									userInput.value = "";
+								});
+						}
+					},
+					{ once: true }
+				);
 			});
 
 			socket.on("message_from_agent", (res) => {
