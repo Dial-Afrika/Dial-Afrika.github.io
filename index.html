@@ -754,7 +754,7 @@
 				webchat.appendChild(newestMessageDiv);
 				newestMessageDiv.classList.add("message");
 				const newestMessage = document.createElement("p");
-				newestMessage.textContent = res;
+				newestMessage.textContent = res?.message;
 				newestMessageDiv.appendChild(newestMessage);
 				userReplyInput.style.display = "flex";
 				const userInput = document.querySelector("#user-input");
@@ -800,7 +800,7 @@
 				webchat.appendChild(messageDiv);
 				messageDiv.classList.add("message");
 				const newestMessage = document.createElement("p");
-				newestMessage.textContent = res;
+				newestMessage.textContent = res.message;
 				messageDiv.appendChild(newestMessage);
 			});
 
@@ -810,7 +810,7 @@
 				webchat.appendChild(messageDiv);
 				messageDiv.classList.add("message");
 				const newestMessage = document.createElement("p");
-				newestMessage.textContent = res;
+				newestMessage.textContent = res.message;
 				messageDiv.appendChild(newestMessage);
 				userReplyInput.style.display = "none";
 			});
